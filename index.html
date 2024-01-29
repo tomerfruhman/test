@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+    <title>PingID iFrame Automation Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        h1 {
+            font-family: Arial, sans-serif;
+            color: #2f2d2d;
+            text-align: default;
+        }
+        p {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            text-align: default;
+            color: #2f2d2d;
+        }
+    </style>
+</head>
+<body>
+<h1></h1>
+
+<script>
+    // Check if the browser is in standards mode
+    if (document.compatMode !== 'CSS1Compat') {
+        alert('Please use a modern browser and ensure it is in standards mode for this page to work correctly.');
+    }
+
+    // Function to get 'htm' query parameter
+    function getHtmParam(url) {
+        var htmStart = url.indexOf('htm=');
+        if (htmStart === -1) return null;
+
+        var htmValue = url.substring(htmStart + 4); // get the part after 'htm='
+
+        return htmValue;
+    }
+
+    // Check if "htm" query parameter is present
+    var htmValue = getHtmParam(window.location.href);
+    if (htmValue) {
+        // Create new iframe
+        var ifrm = document.createElement("iframe");
+
+        // Check if the browser supports the 'allowFullscreen' property
+        if ('allowFullscreen' in ifrm) {
+            ifrm.allowFullscreen = true;
+        } else {
+            alert('Your browser does not support the fullscreen mode for iframes.');
+        }
+
+        // Assign "htm" query parameter value as source of the iframe
+        ifrm.setAttribute("src", decodeURIComponent(htmValue));
+
+        // Set iframe properties
+        ifrm.style = "border:0px #ffffff none;";
+        ifrm.name = "myiFrame";
+        ifrm.scrolling = "no";
+        ifrm.frameBorder = "1";
+        ifrm.marginHeight = "0px";
+        ifrm.marginWidth = "0px";
+        ifrm.height = "1000px";
+        ifrm.width = "1600px";
+
+        // Append iframe to body
+        document.body.appendChild(ifrm);
+    }
+</script>
+
+</body>
+</html>
